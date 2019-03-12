@@ -66,6 +66,6 @@ public class Test07 {
         n2.next = n3;
         n3.next = n4;
         n4.next = n5;
-        printNode(sortList(n1));//结果:{2,3,6,8,9]
+        printNode(sortList(n1));//结果:2,3,6,8,9]
     }
 }
