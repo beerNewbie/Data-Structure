@@ -42,4 +42,5 @@ public interface BinTree<E> {
     E getMax();
     E removeMin();
     E removeMax();
+    E remove();
 }

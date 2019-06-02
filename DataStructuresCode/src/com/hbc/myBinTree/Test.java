@@ -22,6 +22,11 @@ public class Test {
         System.out.println();
         binSearchTree.postOrder();//2 1 3 6 9 7 5
         System.out.println();
-        binSearchTree.levelOrder();//5 3 7 1 6 9 2 
+        binSearchTree.levelOrder();//5 3 7 1 6 9 2
+        System.out.println();
+       // System.out.println(binSearchTree.toString());//树化
+        System.out.println(binSearchTree.getMin());//1
+        System.out.println(binSearchTree.removeMin());//1
+        binSearchTree.inOrder();//2 3 5 6 7 9
     }
 }

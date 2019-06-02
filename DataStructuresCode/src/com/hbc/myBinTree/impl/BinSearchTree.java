@@ -1,7 +1,6 @@
 package com.hbc.myBinTree.impl;
 
 import com.hbc.myBinTree.binTree.BinTree;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -79,6 +78,7 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         return size;
     }
 
+
     @Override
     public boolean contains(E e) {
         return contains(root,e);
@@ -97,11 +97,11 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         }
     }
 
+
     @Override
     public void preOrder() {
         preOrder(root);
     }
-
     /**
      * 以当前节点作为根节点进行前序遍历
      * @param root
@@ -128,6 +128,7 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         inOrder(root.right);
     }
 
+
     @Override
     public void postOrder() {
         postOrder(root);
@@ -140,6 +141,8 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         postOrder(root.right);
         System.out.print(root.data + " ");
     }
+
+
     @Override
     public void levelOrder() {
         Queue<Node> queue = new LinkedList<>();
@@ -160,23 +163,129 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
     }
 
+
     @Override
     public E getMin() {
-        return null;
+        if (root == null) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        Node minNode = getMinNode(root);
+        return minNode.data;
     }
+    private Node getMinNode(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return getMinNode(node.left);
+    }
+
 
     @Override
     public E getMax() {
-        return null;
+        if (root == null) {
+            throw new IllegalArgumentException("BST is Empty");
+        }
+        Node maxNode = getMaxNode(root);
+        return maxNode.data;
     }
+    private Node getMaxNode(Node node) {
+        if(node.right == null) {
+            return node;
+        }
+        return getMaxNode(node.right);
+    }
+
 
     @Override
     public E removeMin() {
-        return null;
+        E result = getMin();
+        root = removeMinNode(root);
+        return result;
+    }
+    private Node removeMinNode(Node root) {
+        if (root.left == null) {
+            Node temp = root.right;
+            root.right = null;
+            size --;
+            return temp;
+        }
+        root.left = removeMinNode(root.left);
+        return root;
     }
 
     @Override
     public E removeMax() {
+        E result = getMax();
+        root = removeMaxNode(root);
+        return result;
+    }
+    private Node removeMaxNode(Node node) {
+        if (node.right == null) {
+            Node temp = node.left;
+            node.left = null;
+            size --;
+            return temp;
+        }
+        node.right = removeMaxNode(node);
+        return node;
+    }
+
+
+    @Override
+    public E remove() {
         return null;
+    }
+    /**
+     *递归删除已node为根节点的二叉树中值为e的节点
+     * @param node 根节点
+     * @param e 要删除的值
+     * @return
+     */
+    private Node removeNode(Node node, E e) {
+        if (node == null) {
+            return null;
+        }
+        //要删除的节点在node的左子树：
+        else if (e.compareTo(node.data) < 0) {
+
+        }
+        //要删除的节点在node的右子树：
+        else if (e.compareTo(node.data) > 0) {
+
+        }
+        //刚好就是要删除node节点：
+        else {
+
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        generateTreeStruct(root,0,sb);
+        return sb.toString();
+    }
+    /**
+     * 前序遍历图形化二叉树
+     * @param root 节点
+     * @param deep 深度
+     * @param sb
+     */
+    private void generateTreeStruct(Node root, int deep, StringBuilder sb) {
+        if (root == null) {
+            sb.append("null" + "\n");
+            return ;
+        }
+        sb.append(generatePaint(deep) + root.data + "\n");
+        generateTreeStruct(root.left,deep+1,sb);
+        generateTreeStruct(root.right,deep+1,sb);
+    }
+    private String generatePaint(int deep) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < deep; i++) {
+            stringBuilder.append("--");
+        }
+        return stringBuilder.toString();
     }
 }
