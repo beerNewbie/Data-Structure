@@ -28,5 +28,8 @@ public class Test {
         System.out.println(binSearchTree.getMin());//1
         System.out.println(binSearchTree.removeMin());//1
         binSearchTree.inOrder();//2 3 5 6 7 9
+        System.out.println();
+        binSearchTree.remove(5);
+        binSearchTree.inOrder();//2 3 6 7 9
     }
 }

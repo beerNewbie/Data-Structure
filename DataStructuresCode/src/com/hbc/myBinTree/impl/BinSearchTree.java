@@ -232,8 +232,8 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
 
     @Override
-    public E remove() {
-        return null;
+    public void remove(E e) {
+        root = removeNode(root,e);
     }
     /**
      *递归删除已node为根节点的二叉树中值为e的节点
@@ -247,15 +247,40 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         }
         //要删除的节点在node的左子树：
         else if (e.compareTo(node.data) < 0) {
-
+            node.left = removeNode(node.left, e);
+            return node;
         }
         //要删除的节点在node的右子树：
         else if (e.compareTo(node.data) > 0) {
-
+            node.right = removeNode(node.right, e);
+            return node ;
         }
         //刚好就是要删除node节点：
         else {
-
+            //要删除节点的左子树为空，返回右子树的根节点
+            if (node.left == null) {
+                Node rightTree = node.right;
+                node.right = null;
+                size--;
+                return rightTree;
+            }
+            //要删除的节点右子树为空，返回左子树的根节点
+            if (node.right == null) {
+                Node leftTree = node.left;
+                node.left = null;
+                size--;
+                return leftTree;
+            }
+            //要删除的节点左右都有值，找后继或前驱节点
+            else {
+                //找右子树的最小节点为根节点作为后继节点
+                Node result = getMinNode(node.right);
+                //删除右子树的最小节点，链到后继节点的右子树
+                result.right = removeMinNode(node.right);
+                result.left = node.left;
+                node.left = node.right = null;
+                return result;
+            }
         }
     }
 
