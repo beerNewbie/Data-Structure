@@ -29,6 +29,22 @@ public class Heap<E> {
         this.comparator = comparator;
     }
 
+    /**
+     * 将任意数组转化为堆
+     * @param nums
+     */
+    public Heap(E[] nums) {
+        this.elementData = (E[]) new Object[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            elementData[i] = nums[i];
+        }
+        this.size = elementData.length;
+        for (int i = (nums.length - 1 - 1) / 2; i >= 0; i--) {
+            siftDown(i);
+        }
+    }
+
+
     public int getSize() {
         return size;
     }
@@ -148,6 +164,7 @@ public class Heap<E> {
                 break;
             }
             swap(index, j);
+            index = j;
         }
     }
 
