@@ -275,7 +275,7 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
             else {
                 //找右子树的最小节点为根节点作为后继节点
                 Node result = getMinNode(node.right);
-                //删除右子树的最小节点，链到后继节点的右子树
+                //删除右子树的最小节点，链到后继节点的右子树（注意先链右孩子否则删除的不是原最小值）
                 result.right = removeMinNode(node.right);
                 result.left = node.left;
                 node.left = node.right = null;
